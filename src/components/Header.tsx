@@ -1,29 +1,29 @@
-import { AppBar, Box, Toolbar, Typography } from '@mui/material';
+import { AppBar, Box, styled, Toolbar, Typography } from '@mui/material';
 import Logo from './../images/ToDo-Logo.png';
 
 const Header = () => {
   return (
     <>
-      <AppBar
+      <StyledAppBar
         position="fixed"
-        sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
       >
         <Toolbar>
-          <Box
-            component="img"
-            src={Logo}
-            alt="Yet Another ToDo List"
-            sx={{
-              height: 42,
-              margin: 1,
-            }}
-          />
+          <StyledImage src={Logo} alt="Yet Another ToDo List"/>
           <Typography variant="h6">Yet Another ToDo List</Typography>
         </Toolbar>
-      </AppBar>
+      </StyledAppBar>
       <Toolbar />
     </>
   );
 };
+
+const StyledImage = styled('img')({
+  height: '42px',
+  margin: '4px',
+})
+
+const StyledAppBar = styled(AppBar)({
+  zIndex: 100000,
+})
 
 export default Header;

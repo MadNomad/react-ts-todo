@@ -6,23 +6,25 @@ import { DataContext } from './context/DataContext';
 import { useState } from 'react';
 import { AppDataType } from './types/AppDataType';
 
-function App() {
-  const [appData, setAppData] = useState<AppDataType | null>({
-    categories: [
-      { id: '1', name: 'What to learn', isAllDone: false },
-      { id: '2', name: 'Movies', isAllDone: true },
-      { id: '3', name: 'Music', isAllDone: true },
-    ],
-    todos: [
-      {
-        id: 'string',
-        categoryId: '1',
-        deadline: new Date(),
-        text: 'string',
-        isDone: false,
-      },
-    ],
-  });
+const mockData = {
+  categories: [
+    { id: '1', name: 'What to learn', isAllDone: false },
+    { id: '2', name: 'Movies', isAllDone: true },
+    { id: '3', name: 'Music', isAllDone: true },
+  ],
+  todos: [
+    {
+      id: 'string',
+      categoryId: '1',
+      deadline: new Date(),
+      text: 'string',
+      isDone: false,
+    },
+  ],
+}
+
+const App = () => {
+  const [appData, setAppData] = useState<AppDataType | null>(mockData);
 
   return (
     <DataContext.Provider value={{ appData, setAppData }}>
@@ -39,19 +41,6 @@ function App() {
       </Box>
     </DataContext.Provider>
   );
-}
+};
 
 export default App;
-
-// Test data:
-
-// categories: [{ id: '1', name: 'Test Category', isAllDone: false }],
-// todos: [
-//   {
-//     id: 'string',
-//     categoryId: '1',
-//     deadline: new Date(),
-//     text: 'string',
-//     isDone: false,
-//   },
-// ],

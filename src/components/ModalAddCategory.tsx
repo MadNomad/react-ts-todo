@@ -6,31 +6,27 @@ import {
   DialogTitle,
   TextField,
 } from '@mui/material';
-import React, { Dispatch, SetStateAction, useContext, useState } from 'react';
+import React, {Dispatch, FC, SetStateAction, useContext, useState} from 'react';
 import { DataContext } from '../context/DataContext';
 import { AppDataType } from '../types/AppDataType';
 import { TodoCategoryType } from '../types/TodoCategoryType';
 import { v1 as uuid } from 'uuid';
 
-type Props = {
+interface Props {
   isOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
-};
+}
 
-function ModalAddCategory(props: Props) {
+const ModalAddCategory:FC<Props> = ({isOpen, setIsOpen}) => {
   const { appData, setAppData } = useContext(DataContext);
 
-  const handleClickOpen = () => {
-    props.setIsOpen(true);
-  };
-
   const handleClose = () => {
-    props.setIsOpen(false);
+    setIsOpen(false);
   };
 
   return (
     <Dialog
-      open={props.isOpen}
+      open={isOpen}
       onClose={handleClose}
       PaperProps={{
         component: 'form',
@@ -73,6 +69,6 @@ function ModalAddCategory(props: Props) {
       </DialogActions>
     </Dialog>
   );
-}
+};
 
 export default ModalAddCategory;

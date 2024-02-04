@@ -1,0 +1,9 @@
+.*
+build
+node_modules
+public
+out
+
+package.json
+README.md
+tsconfig.json
