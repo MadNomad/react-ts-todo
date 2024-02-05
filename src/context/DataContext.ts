@@ -1,14 +1,14 @@
-import { createContext } from 'react';
-import { AppDataType } from '../types/AppDataType';
+import { createContext, Dispatch, SetStateAction } from "react";
+import { AppDataType } from "../types/AppDataType";
 
 type AppContextType = {
-  appData: AppDataType | null;
-  setAppData: React.Dispatch<React.SetStateAction<AppDataType | null>>;
+  appData: AppDataType;
+  setAppData: Dispatch<SetStateAction<AppDataType>>;
 };
 
-const iAppContextState = {
-  appData: null,
+const IAppContextState = {
+  appData: {} as AppDataType,
   setAppData: () => {},
 };
 
-export const DataContext = createContext<AppContextType>(iAppContextState);
+export const DataContext = createContext<AppContextType>(IAppContextState);

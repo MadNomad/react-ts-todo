@@ -3,8 +3,3 @@ export type TodoCategoryType = {
   name: string;
   isAllDone: boolean;
 };
-
-export enum isAllDone {
-  Done = 'Assignment',
-  Pending = 'AssignmentTurnedIn',
-}
