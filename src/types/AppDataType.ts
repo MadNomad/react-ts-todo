@@ -1,7 +1,3 @@
-import { TodoCategoryType } from './TodoCategoryType';
-import { TodoItemType } from './TodoItemType';
+import { TodoCategoryType } from "./TodoCategoryType";
 
-export type AppDataType = {
-  categories: TodoCategoryType[];
-  todos: TodoItemType[];
-};
+export interface AppDataType extends TodoCategoryType {}

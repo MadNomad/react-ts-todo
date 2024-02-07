@@ -29,7 +29,7 @@ const Sidebar: FC<Props> = ({ handleCategoryClick }) => {
       <Box sx={{ overflow: "auto" }}>
         <List>
           <SidebarMenuAddCategory />
-          {appData?.categories.map((category) => (
+          {appData.map((category) => (
             <ListItem key={category.id} disablePadding onClick={handleCategoryClick(category.name)}>
               <ListItemButton>
                 <ListItemIcon>{category.isAllDone ? <AssignmentTurnedIn /> : <Assignment />}</ListItemIcon>

@@ -1,7 +1,6 @@
-export type TodoItemType = {
+export interface TodoItemType {
   id: string;
-  categoryId: string;
   deadline: Date;
   text: string;
   isDone: boolean;
-};
+}

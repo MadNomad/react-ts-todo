@@ -5,42 +5,38 @@ import { DataContext } from "./context/DataContext";
 import { useState } from "react";
 import { AppDataType } from "./types/AppDataType";
 
-const mockData = {
-  categories: [
-    { id: "1", name: "What to learn", isAllDone: false },
-    { id: "2", name: "Movies", isAllDone: true },
-    { id: "3", name: "Music", isAllDone: true },
-  ],
-  todos: [
-    {
-      id: "string",
-      categoryId: "1",
-      deadline: new Date(),
-      text: "string",
-      isDone: false,
-    },
-  ],
-};
-
-const categories = [
+const mockData: AppDataType[] = [
   {
-    id: "",
-    categoryName: "",
-    isDone: false,
+    id: "1",
+    name: "What to learn",
+    isAllDone: false,
     todos: [
       {
-        id: "string",
-        categoryId: "1",
+        id: "1",
         deadline: new Date(),
-        text: "string",
+        text: "React practice",
+        isDone: true,
+      },
+      {
+        id: "2",
+        deadline: new Date(),
+        text: "JavaScript practice",
+        isDone: true,
+      },
+      {
+        id: "3",
+        deadline: new Date(),
+        text: "Next.js practice",
         isDone: false,
       },
     ],
   },
+  { id: "2", name: "Movies", isAllDone: true, todos: [] },
+  { id: "3", name: "Music", isAllDone: true, todos: [] },
 ];
 
 const App = () => {
-  const [appData, setAppData] = useState<AppDataType>(mockData);
+  const [appData, setAppData] = useState<AppDataType[]>(mockData);
   const [selectedCategory, setSelectedCategory] = useState("");
 
   const handleCategoryClick = (name: string) => () => setSelectedCategory(name);

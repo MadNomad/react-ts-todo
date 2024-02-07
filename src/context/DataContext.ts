@@ -2,12 +2,12 @@ import { createContext, Dispatch, SetStateAction } from "react";
 import { AppDataType } from "../types/AppDataType";
 
 type AppContextType = {
-  appData: AppDataType;
-  setAppData: Dispatch<SetStateAction<AppDataType>>;
+  appData: AppDataType[];
+  setAppData: Dispatch<SetStateAction<AppDataType[]>>;
 };
 
 const IAppContextState = {
-  appData: {} as AppDataType,
+  appData: {} as AppDataType[],
   setAppData: () => {},
 };
 

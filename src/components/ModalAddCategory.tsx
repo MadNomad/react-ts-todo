@@ -1,8 +1,7 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from "@mui/material";
-import React, { Dispatch, FC, SetStateAction, useContext, useState } from "react";
+import { Dispatch, FC, SetStateAction, useContext, useState } from "react";
 import { DataContext } from "../context/DataContext";
 import { AppDataType } from "../types/AppDataType";
-import { TodoCategoryType } from "../types/TodoCategoryType";
 import { v1 as uuid } from "uuid";
 
 interface Props {
@@ -25,15 +24,13 @@ const ModalAddCategory: FC<Props> = ({ isOpen, setIsOpen }) => {
   const handleAdd = () => {
     if (!categoryValue) return;
 
-    const newCategory: TodoCategoryType = {
+    const newCategory: AppDataType = {
       id: uuid(),
       name: categoryValue,
-      isAllDone: false,
+      isAllDone: true,
+      todos: [],
     };
-    const newAppData: AppDataType = {
-      categories: [...appData.categories, newCategory],
-      todos: appData.todos,
-    };
+    const newAppData: AppDataType[] = [...appData, newCategory];
     setAppData(newAppData);
     setCategoryValue("");
     handleClose();
