@@ -1,7 +1,7 @@
 import { FC, useContext, useEffect, useState } from "react";
 import { DataContext } from "../context/DataContext";
 import { Checkbox, IconButton, List, ListItem, ListItemButton, ListItemText, Typography } from "@mui/material";
-import { Comment } from "@mui/icons-material";
+import { Delete } from "@mui/icons-material";
 import { AppDataType } from "../types/AppDataType";
 import { TodoItemType } from "../types/TodoItemType";
 interface Props {
@@ -18,19 +18,24 @@ const TodoListItems: FC<Props> = ({ selectedCategory }) => {
   const setCheckedRevert = (id: string, checked: boolean) => {
     currentCategoryData.todos.filter((item) => item.id === id)[0].isDone = !checked;
     setCurrentCategoryTodos(currentCategoryData.todos);
-    isCategoryAllDone();
+    updateAppData();
+  };
+
+  const deleteItem = (id: string) => {
+    currentCategoryData.todos = [...currentCategoryData.todos?.filter((item) => item.id !== id)];
     updateAppData();
   };
 
   const isCategoryAllDone = () => {
     let isCategoryDone: boolean = true;
-    currentCategoryTodos?.forEach((todo) => {
+    currentCategoryData.todos?.forEach((todo) => {
       if (!todo.isDone) isCategoryDone = false;
     });
     currentCategoryData.isAllDone = isCategoryDone;
   };
 
   const updateAppData = () => {
+    isCategoryAllDone();
     const newAppData: AppDataType[] = appData.map((category) =>
       category.id === currentCategoryId ? { ...currentCategoryData } : { ...category },
     );
@@ -48,14 +53,20 @@ const TodoListItems: FC<Props> = ({ selectedCategory }) => {
   return (
     <>
       <Typography variant="h6">{currentCategoryData.name}</Typography>
-      <List sx={{ width: "100%", maxWidth: 760, bgcolor: "background.paper" }}>
+      <List sx={{ width: "100%", maxWidth: 760, padding: "4px 20px", bgcolor: "background.paper" }}>
         {currentCategoryTodos?.map((item) => {
           return (
             <ListItem
               key={item.id}
               secondaryAction={
-                <IconButton edge="end" aria-label="comments">
-                  <Comment />
+                <IconButton
+                  edge="end"
+                  aria-label="delete"
+                  onClick={() => {
+                    deleteItem(item.id);
+                  }}
+                >
+                  <Delete />
                 </IconButton>
               }
               disablePadding
@@ -67,7 +78,7 @@ const TodoListItems: FC<Props> = ({ selectedCategory }) => {
                 }}
                 dense
               >
-                <ListItem>
+                <ListItem sx={{ width: "100%", maxWidth: 65, minWidth: 80 }}>
                   <Checkbox edge="start" checked={item.isDone} disableRipple />
                 </ListItem>
                 <ListItemText id={item.id} primary={item.text} />
