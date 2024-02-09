@@ -1,9 +1,11 @@
 import Header from "./components/Header";
-import { Box, CssBaseline, Typography } from "@mui/material";
+import { Box, CssBaseline } from "@mui/material";
 import Sidebar from "./components/Sidebar";
 import { DataContext } from "./context/DataContext";
 import { useState } from "react";
 import { AppDataType } from "./types/AppDataType";
+import { styled } from "@mui/system";
+import Content from "./components/Content";
 
 const mockData: AppDataType[] = [
   {
@@ -47,14 +49,17 @@ const App = () => {
     <DataContext.Provider value={{ appData, setAppData }}>
       <CssBaseline />
       <Header />
-      <Box sx={{ display: "flex" }}>
+      <Wrapper>
         <Sidebar handleCategoryClick={handleCategoryClick} />
-        <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-          <Typography paragraph>Hello World!</Typography>
-        </Box>
-      </Box>
+        <ContentWrapper component="main">
+          <Content selectedCategory={selectedCategory} />
+        </ContentWrapper>
+      </Wrapper>
     </DataContext.Provider>
   );
 };
+
+const Wrapper = styled(Box)({ display: "flex" });
+const ContentWrapper = styled(Box)({ flexGrow: 1, padding: 3 });
 
 export default App;

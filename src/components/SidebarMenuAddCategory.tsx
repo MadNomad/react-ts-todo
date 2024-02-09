@@ -1,5 +1,5 @@
 import { Add } from "@mui/icons-material";
-import { Divider, ListItem, ListItemButton, ListItemIcon, ListItemText, Modal } from "@mui/material";
+import { Divider, ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
 import { useState } from "react";
 import ModalAddCategory from "./ModalAddCategory";
 
