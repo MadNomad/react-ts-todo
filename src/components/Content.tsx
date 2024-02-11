@@ -5,9 +5,10 @@ import TodoListItems from "./TodoListItems";
 
 interface Props {
   selectedCategory: string;
+  setSelectedCategory: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const Content: FC<Props> = ({ selectedCategory }) => {
+const Content: FC<Props> = ({ selectedCategory, setSelectedCategory }) => {
   return (
     <>
       {selectedCategory === "" ? (
@@ -18,7 +19,7 @@ const Content: FC<Props> = ({ selectedCategory }) => {
         </StyledStartDiv>
       ) : (
         <StyledTodoDiv>
-          <TodoListItems selectedCategory={selectedCategory} />
+          <TodoListItems selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />
         </StyledTodoDiv>
       )}
     </>
@@ -32,7 +33,7 @@ const StyledStartDiv = styled("div")({
   alignItems: "center",
   justifyContent: "center",
 });
-const StyledQuote = styled("div")({ fontStyle: "italic", paddingTop: "25px" });
+
 const StyledTodoDiv = styled("div")({
   height: "85vh",
   display: "flex",
@@ -40,6 +41,9 @@ const StyledTodoDiv = styled("div")({
   alignItems: "center",
   marginTop: "15px",
 });
+
+const StyledQuote = styled("div")({ fontStyle: "italic", paddingTop: "25px" });
+
 const StyledContentLogo = styled("img")({ height: "180px", width: "180px" });
 
 export default Content;

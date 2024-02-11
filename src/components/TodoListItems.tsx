@@ -1,29 +1,54 @@
 import { FC, useContext, useEffect, useState } from "react";
 import { DataContext } from "../context/DataContext";
-import { Checkbox, IconButton, List, ListItem, ListItemButton, ListItemText, Typography } from "@mui/material";
-import { Delete } from "@mui/icons-material";
+import {
+  Button,
+  Checkbox,
+  IconButton,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  Typography,
+  styled,
+} from "@mui/material";
+import { Delete, Send } from "@mui/icons-material";
 import { AppDataType } from "../types/AppDataType";
 import { TodoItemType } from "../types/TodoItemType";
+import ModalTodoAddItem from "./ModalTodoAddItem";
+
 interface Props {
   selectedCategory: string;
+  setSelectedCategory: React.Dispatch<React.SetStateAction<string>>;
 }
-const TodoListItems: FC<Props> = ({ selectedCategory }) => {
+
+const TodoListItems: FC<Props> = ({ selectedCategory, setSelectedCategory }) => {
   const { appData, setAppData } = useContext(DataContext);
+  const [openModal, setOpenModal] = useState(false);
 
   const [currentCategoryId, setCurrentCategoryId] = useState<string>(selectedCategory);
   const [currentCategoryTodos, setCurrentCategoryTodos] = useState<TodoItemType[]>();
 
   const currentCategoryData: AppDataType = [...appData.filter((category) => category.id === currentCategoryId)][0];
 
+  const handleOpen = () => setOpenModal(true);
+
   const setCheckedRevert = (id: string, checked: boolean) => {
-    currentCategoryData.todos.filter((item) => item.id === id)[0].isDone = !checked;
-    setCurrentCategoryTodos(currentCategoryData.todos);
+    const newCategoryTodos: TodoItemType[] = [...currentCategoryData.todos!];
+    newCategoryTodos.filter((item) => item.id === id)[0].isDone = !checked;
+    setCurrentCategoryTodos(newCategoryTodos);
     updateAppData();
   };
 
   const deleteItem = (id: string) => {
-    currentCategoryData.todos = [...currentCategoryData.todos?.filter((item) => item.id !== id)];
+    const newCategoryTodos: TodoItemType[] = [...currentCategoryData.todos!.filter((item) => item.id !== id)];
+    currentCategoryData.todos = newCategoryTodos;
     updateAppData();
+  };
+
+  const deleteCategory = () => {
+    const newAppData: AppDataType[] = appData.filter((category) => category.id !== currentCategoryId);
+    setSelectedCategory("");
+    setAppData(newAppData);
   };
 
   const isCategoryAllDone = () => {
@@ -53,7 +78,7 @@ const TodoListItems: FC<Props> = ({ selectedCategory }) => {
   return (
     <>
       <Typography variant="h6">{currentCategoryData.name}</Typography>
-      <List sx={{ width: "100%", maxWidth: 760, padding: "4px 20px", bgcolor: "background.paper" }}>
+      <StyledList>
         {currentCategoryTodos?.map((item) => {
           return (
             <ListItem
@@ -78,17 +103,54 @@ const TodoListItems: FC<Props> = ({ selectedCategory }) => {
                 }}
                 dense
               >
-                <ListItem sx={{ width: "100%", maxWidth: 65, minWidth: 80 }}>
+                <StyledListItem>
                   <Checkbox edge="start" checked={item.isDone} disableRipple />
-                </ListItem>
+                </StyledListItem>
                 <ListItemText id={item.id} primary={item.text} />
               </ListItemButton>
             </ListItem>
           );
         })}
-      </List>
+      </StyledList>
+      <StyledButtonsDiv>
+        <Button variant="outlined" color="error" startIcon={<Delete />} onClick={() => deleteCategory()}>
+          Delete category
+        </Button>
+        <Button variant="contained" endIcon={<Send />} onClick={handleOpen}>
+          Add new
+        </Button>
+      </StyledButtonsDiv>
+      <ModalTodoAddItem
+        isOpen={openModal}
+        setIsOpen={setOpenModal}
+        currentCategoryTodos={currentCategoryData.todos}
+        updateData={updateAppData}
+      />
     </>
   );
 };
+
+const StyledList = styled(List)({
+  width: "100%",
+  maxWidth: 760,
+  marginTop: 10,
+  marginBottom: 20,
+  padding: "4px 20px",
+  bgcolor: "background.paper",
+  justifyContent: "center",
+});
+
+const StyledListItem = styled(ListItem)({
+  width: "100%",
+  maxWidth: 65,
+  minWidth: 80,
+});
+
+const StyledButtonsDiv = styled("div")({
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+  gap: "25px",
+});
 
 export default TodoListItems;

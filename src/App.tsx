@@ -52,7 +52,7 @@ const App = () => {
       <Wrapper>
         <Sidebar handleCategoryClick={handleCategoryClick} />
         <ContentWrapper component="main">
-          <Content selectedCategory={selectedCategory} />
+          <Content selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />
         </ContentWrapper>
       </Wrapper>
     </DataContext.Provider>

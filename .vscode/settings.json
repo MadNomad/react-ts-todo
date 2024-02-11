@@ -8,5 +8,8 @@
     "vs-code-prettier-eslint.prettierLast": true,
     "[css]": {
       "editor.defaultFormatter": "esbenp.prettier-vscode"
-    } // set as "true" to run 'prettier' last not first
+    },
+    "cSpell.words": [
+      "Todos"
+    ] // set as "true" to run 'prettier' last not first
   }
