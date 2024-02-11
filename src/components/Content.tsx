@@ -1,17 +1,17 @@
-import { FC } from "react";
+import { Dispatch, FC, SetStateAction } from "react";
 import contentLogo from "./../images/Blue-notes.png";
 import { styled } from "@mui/system";
-import TodoListItems from "./TodoListItems";
+import TodoItemsList from "./TodoItemsList";
 
 interface Props {
   selectedCategory: string;
-  setSelectedCategory: React.Dispatch<React.SetStateAction<string>>;
+  setSelectedCategory: Dispatch<SetStateAction<string>>;
 }
 
 const Content: FC<Props> = ({ selectedCategory, setSelectedCategory }) => {
   return (
     <>
-      {selectedCategory === "" ? (
+      {!selectedCategory ? (
         <StyledStartDiv>
           <StyledContentLogo src={contentLogo}></StyledContentLogo>
           <StyledQuote>“Someday is not a day of the week”</StyledQuote>
@@ -19,7 +19,7 @@ const Content: FC<Props> = ({ selectedCategory, setSelectedCategory }) => {
         </StyledStartDiv>
       ) : (
         <StyledTodoDiv>
-          <TodoListItems selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />
+          <TodoItemsList selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />
         </StyledTodoDiv>
       )}
     </>
@@ -42,8 +42,14 @@ const StyledTodoDiv = styled("div")({
   marginTop: "15px",
 });
 
-const StyledQuote = styled("div")({ fontStyle: "italic", paddingTop: "25px" });
+const StyledQuote = styled("div")({
+  fontStyle: "italic",
+  paddingTop: "25px",
+});
 
-const StyledContentLogo = styled("img")({ height: "180px", width: "180px" });
+const StyledContentLogo = styled("img")({
+  height: "180px",
+  width: "180px",
+});
 
 export default Content;

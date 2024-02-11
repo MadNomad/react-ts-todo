@@ -26,7 +26,7 @@ const Sidebar: FC<Props> = ({ handleCategoryClick }) => {
   return (
     <StyledDrawer width={drawerWidth} variant="permanent">
       <Toolbar />
-      <Box sx={{ overflow: "auto" }}>
+      <Wrapper>
         <List>
           <SidebarMenuAddCategory />
           {appData.map((category) => (
@@ -38,10 +38,14 @@ const Sidebar: FC<Props> = ({ handleCategoryClick }) => {
             </ListItem>
           ))}
         </List>
-      </Box>
+      </Wrapper>
     </StyledDrawer>
   );
 };
+
+const Wrapper = styled("div")({
+  overflow: "auto",
+});
 
 const StyledDrawer = styled(Drawer)<{ width: string }>(({ width }) => ({
   width: `${width}px`,
